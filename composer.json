@@ -1,0 +1,35 @@
+{
+    "name": "bee-framework/http",
+    "description": "Bee框架http组件",
+    "type": "library",
+    "authors": [
+        {
+            "name": "南山吴彦祖",
+            "email": "anoxia@engineer.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.0",
+        "ext-json": "*",
+        "ext-swoole": "^4.1.0",
+        "ext-pcntl": "*",
+        "ext-phalcon": "^3.4.0",
+        "adhocore/cli": "^0.3.2",
+        "bee-framework/util": "^1.0"
+    },
+    "require-dev": {
+        "eaglewu/swoole-ide-helper": "master-dev",
+        "phalcon/ide-stubs": "*",
+        "phpunit/phpunit": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bee\\Http\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bee\\Http\\Tests\\": "tests/"
+        }
+    }
+}
