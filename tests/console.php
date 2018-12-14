@@ -10,7 +10,7 @@ class HttpServer extends \Bee\Http\Server
      */
     public function onStart(\Swoole\Http\Server $server)
     {
-        swoole_set_process_name($this->name . ':reactor');
+        swoole_set_process_name($this->name . ':master');
     }
 
     /**
@@ -26,6 +26,18 @@ class HttpServer extends \Bee\Http\Server
         } else {
             swoole_set_process_name($this->name . ':worker');
         }
+
+        register_shutdown_function(function () {
+            file_put_contents(__DIR__ . '/shutdown.log', json_encode(func_get_args()) . PHP_EOL, 8);
+        });
+
+        set_error_handler(function () {
+            file_put_contents(__DIR__ . '/error.log', json_encode(func_get_args()) . PHP_EOL, 8);
+        }, E_ALL);
+
+        set_exception_handler(function () {
+            file_put_contents(__DIR__ . '/exception.log', json_encode(func_get_args()) . PHP_EOL, 8);
+        });
     }
 
     /**
@@ -37,6 +49,7 @@ class HttpServer extends \Bee\Http\Server
      */
     public function onWorkerStop(\Swoole\Http\Server $server, $workerId)
     {
+        file_put_contents(__DIR__ . '/onWorkerStop.log', $workerId . PHP_EOL, 8);
     }
 
     /**
@@ -47,6 +60,9 @@ class HttpServer extends \Bee\Http\Server
      */
     public function onRequest(\Swoole\Http\Request $request, \Swoole\Http\Response $response)
     {
+        include 't.php';
+
+
         $response->end(json_encode($request->server));
     }
 
@@ -64,6 +80,38 @@ class HttpServer extends \Bee\Http\Server
     public function onWorkerError(\Swoole\Http\Server $server, $workerId, $workerPid, $exitCode, $signal)
     {
         // TODO: Implement onWorkerError() method.
+
+        file_put_contents(__DIR__ . '/onWorkerError.log', "{$workerId} - $workerPid - $exitCode - $signal" . PHP_EOL, 8);
+    }
+
+    /**
+     * 管理进程启动时
+     *  - 本函数中可以修改管理进程的名称。
+     *  - 注意，manager进程中不能添加定时器，不能使用task、async、coroutine等功能
+     *  - onManagerStart回调时，Task和Worker进程已创建
+     *
+     * @param \Swoole\Http\Server $server
+     * @return mixed
+     */
+    public function onManagerStart(\Swoole\Http\Server $server)
+    {
+        // TODO: Implement onManagerStart() method.
+
+        swoole_set_process_name($this->name . ':manager');
+    }
+
+    /**
+     * 管理进程结束时回调该方法
+     *  - onManagerStop触发时，说明Task和Worker进程已结束运行，已被Manager进程回收。
+     *
+     * @param \Swoole\Http\Server $server
+     * @return mixed
+     */
+    public function onManagerStop(\Swoole\Http\Server $server)
+    {
+        // TODO: Implement onManagerStop() method.
+
+        file_put_contents(__DIR__ . '/onManagerStop.log', $server->worker_id . PHP_EOL, 8);
     }
 }
 
@@ -71,7 +119,12 @@ $httpServer = new HttpServer(
     [
         'name'   => 'bee-http',
         'host'   => '0.0.0.0',
-        'port'   => 8000
+        'port'   => 8000,
+        'option' => [
+            'pid_file'         => '/tmp/bee-http.pid',
+            'log_file'         => '/tmp/bee-http_server.log',
+            'task_worker_num'  => 0,
+        ]
     ]
 );
 //$httpServer->start();

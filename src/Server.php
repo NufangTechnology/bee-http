@@ -30,9 +30,6 @@ abstract class Server implements ServerInterface
         'log_file'         => '/tmp/bee-http_server.log',
         'worker_num'       => 4,
         'task_worker_num'  => 4,
-        'daemonize'        => true,
-        'dispatch_mode'    => 3,
-        'enable_coroutine' => false
     ];
 
     /**

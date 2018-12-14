@@ -13,6 +13,26 @@ use Swoole\Http\Server;
 interface ServerInterface
 {
     /**
+     * 管理进程启动时
+     *  - 本函数中可以修改管理进程的名称。
+     *  - 注意，manager进程中不能添加定时器，不能使用task、async、coroutine等功能
+     *  - onManagerStart回调时，Task和Worker进程已创建
+     *
+     * @param Server $server
+     * @return mixed
+     */
+    public function onManagerStart(Server $server);
+
+    /**
+     * 管理进程结束时回调该方法
+     *  - onManagerStop触发时，说明Task和Worker进程已结束运行，已被Manager进程回收。
+     *
+     * @param Server $server
+     * @return mixed
+     */
+    public function onManagerStop(Server $server);
+
+    /**
      * Server启动在主进程的主线程回调此方法
      *
      * @param Server $server
