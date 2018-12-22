@@ -206,7 +206,7 @@ abstract class Server implements ServerInterface
      */
     public function status()
     {
-        if ($this->isRunning()) {
+        if (!$this->isRunning()) {
             $this->output->warn('没有运行中的服务', true);
             return;
         }
@@ -257,7 +257,7 @@ abstract class Server implements ServerInterface
      */
     public function pid() : int
     {
-        if ($this->isRunning()) {
+        if (!$this->isRunning()) {
             return 0;
         }
 
