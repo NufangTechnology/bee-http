@@ -34,6 +34,9 @@ class Context
      */
     public function __construct(SwooleHttpRequest $request, SwooleHttpResponse $response)
     {
+        $this->request  = new Request;
+        $this->response = new Response;
+
         $this->request->withSource($request);
         $this->response->withSource($response);
     }
