@@ -6,7 +6,7 @@ namespace Bee\Http;
  *
  * @package Ant\Http
  */
-class Request extends \Phalcon\Http\Request
+class Request
 {
     /**
      * @var \Swoole\Http\Request
@@ -20,25 +20,6 @@ class Request extends \Phalcon\Http\Request
      */
     public function withSource(\Swoole\Http\Request $request)
     {
-        $_GET     = $request->get ?? [];
-        $_POST    = $request->post ?? [];
-        $_REQUEST = array_merge($_GET, $_POST);
-
-        // $_SERVER
-        $_SERVER = [];
-        foreach ($request->server as $key => $value) {
-            $_SERVER[strtoupper($key)] = $value;
-        }
-        foreach ($request->header as $key => $value) {
-            $key = strtoupper(strtr($key, '-', '_'));
-            $_SERVER[$key] = $value;
-        }
-
-        // route url
-        if (empty($_GET['_url'])) {
-            $_GET['_url'] = $_SERVER['REQUEST_URI'];
-        }
-
         $this->request = $request;
     }
 

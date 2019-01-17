@@ -9,7 +9,7 @@ use Bee\Http\Response\Exception;
  *
  * @package Ant\Http
  */
-class Response extends \Phalcon\Http\Response
+class Response
 {
     /**
      * @var \Swoole\Http\Response
@@ -19,18 +19,17 @@ class Response extends \Phalcon\Http\Response
     /**
      * @var Headers
      */
-    protected $_headers;
+    protected $headers;
 
     /**
-     * Response constructor.
-     *
-     * @param null $content
-     * @param null $code
-     * @param null $status
+     * @var string
      */
-    public function __construct($content = null, $code = null, $status = null)
-    {
-    }
+    protected $content;
+
+    /**
+     * @var bool
+     */
+    protected $sent = false;
 
     /**
      * 数据源
@@ -40,10 +39,10 @@ class Response extends \Phalcon\Http\Response
     public function withSource(\Swoole\Http\Response $response)
     {
         $this->response = $response;
-        $this->_headers = new Headers($response);
+        $this->headers  = new Headers($response);
 
         // 更新发送状态
-        $this->_sent    = false;
+        $this->sent     = false;
     }
 
     /**
@@ -53,16 +52,18 @@ class Response extends \Phalcon\Http\Response
      */
     public function send()
     {
-        if ($this->_sent) {
+        if ($this->sent) {
             throw new Exception('Response was already sent');
         }
 
         // 发送头信息
-        $this->_headers->send();
+        $this->headers->send();
+        // 写入内容
+        $this->response->write($this->content);
         // 发送相应内容
-        $this->response->end($this->_content);
+        $this->response->end();
 
         // 更新发送状态
-        $this->_sent = true;
+        $this->sent = true;
     }
 }
