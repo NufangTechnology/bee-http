@@ -1,46 +1,98 @@
 <?php
 namespace Bee\Http\Response;
 
-use Swoole\Http\Response;
-
-class Headers extends \Phalcon\Http\Response\Headers
+/**
+ * Class Headers
+ *
+ * @package Bee\Http\Response
+ */
+class Headers implements HeadersInterface
 {
-    /**
-     * @var Response
-     */
-    protected $response;
-
     /**
      * @var array
      */
-    protected $_headers = ['Server' => 'bee-server-1.0.0'];
+    protected $headers = ['Server' => 'bee-server-1.0.0'];
 
     /**
-     * Headers constructor.
+     * Sets a header to be sent at the end of the request
      *
-     * @param Response $response
+     * @param string $name
+     * @param string $value
      */
-    public function __construct(Response $response)
+    public function set(string $name, string $value)
     {
-        $this->response = $response;
+        $this->headers[$name] = $value;
     }
 
     /**
-     * 发送header信息
+     * Gets a header value from the internal bag
      *
-     * @return bool
+     * @param string $name
+     * @return bool|mixed
      */
-    public function send()
+    public function get(string $name)
     {
-        foreach ($this->_headers as $header => $value) {
-            if (empty($value)) {
-                $_header = explode(':', $header);
-                $this->response->header($_header[0], $_header[1]);
-            } else {
-                $this->response->header($header, $value);
+        if (isset($this->headers[$name])) {
+            return $this->headers[$name];
+        }
+
+        return false;
+    }
+
+    /**
+     * Sets a raw header to be sent at the end of the request
+     *
+     * @param string $header
+     */
+    public function setRaw(string $header)
+    {
+        $this->headers[$header] = null;
+    }
+
+    /**
+     * Removes a header to be sent at the end of the request
+     *
+     * @param string $name
+     */
+    public function remove(string $name)
+    {
+        unset($this->headers[$name]);
+    }
+
+    /**
+     * Reset set headers
+     */
+    public function reset()
+    {
+        $this->headers = [];
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray() : array
+    {
+        return $this->headers;
+    }
+
+    /**
+     * Restore a \Bee\Http\Response\Headers object
+     *
+     * @param array $data
+     * @return HeadersInterface
+     */
+    public static function __set_state(array $data): HeadersInterface
+    {
+        $headers = new self();
+
+        if (isset($data['headers'])) {
+            $dataHeaders = $data['headers'];
+
+            foreach ($dataHeaders as $key => $value) {
+                $headers->set($key, $value);
             }
         }
 
-        return true;
+        return $headers;
     }
 }

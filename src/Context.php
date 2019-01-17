@@ -2,7 +2,7 @@
 namespace Bee\Http;
 
 use Swoole\Http\Request as SwooleHttpRequest;
-use Swoole\Http\Response as SwooleHttpReqponse;
+use Swoole\Http\Response as SwooleHttpResponse;
 
 /**
  * Class Context
@@ -30,9 +30,9 @@ class Context
      * Context
      *
      * @param SwooleHttpRequest $request
-     * @param SwooleHttpReqponse $response
+     * @param SwooleHttpResponse $response
      */
-    public function __construct(SwooleHttpRequest $request, SwooleHttpReqponse $response)
+    public function __construct(SwooleHttpRequest $request, SwooleHttpResponse $response)
     {
         $this->request->withSource($request);
         $this->response->withSource($response);

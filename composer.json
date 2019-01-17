@@ -15,8 +15,7 @@
         "ext-pcntl": "*",
         "ext-phalcon": "^3.4.0",
         "adhocore/cli": "^0.3.2",
-        "bee-framework/util": "^1.0",
-        "fastd/http": "^3.2"
+        "bee-framework/util": "^1.0"
     },
     "require-dev": {
         "eaglewu/swoole-ide-helper": "master-dev",
