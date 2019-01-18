@@ -73,7 +73,7 @@ class Context
 
     /**
      * @param string $key
-     * @return mixed|null
+     * @return mixed
      */
     public function get(string $key)
     {
@@ -91,7 +91,7 @@ class Context
 
     /**
      * @param string $key
-     * @return array
+     * @return mixed
      */
     public function getRuntime(string $key)
     {
