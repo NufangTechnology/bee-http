@@ -24,7 +24,12 @@ class Context
     /**
      * @var array
      */
-    private $map = [];
+    private $data = [];
+
+    /**
+     * @var array
+     */
+    private $runtime = [];
 
     /**
      * Context
@@ -58,24 +63,46 @@ class Context
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @param $value
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
-        $this->map[$key] = $value;
+        $this->data[$key] = $value;
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed|null
      */
-    public function get($key)
+    public function get(string $key)
     {
-        if (isset($this->map[$key])) {
-            return $this->map[$key];
-        }
+        return $this->data[$key] ?? null;
+    }
 
-        return null;
+    /**
+     * @param string $key
+     * @param $value
+     */
+    public function setRuntime(string $key, $value): void
+    {
+        $this->runtime[$key] = $value;
+    }
+
+    /**
+     * @param string $key
+     * @return array
+     */
+    public function getRuntime(string $key)
+    {
+        return $this->runtime[$key] ?? null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        return $this->data;
     }
 }
