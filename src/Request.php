@@ -68,4 +68,12 @@ class Request extends \Phalcon\Http\Request
 
         return json_decode($rawBody, $associative);
     }
+
+    /**
+     * @return \Swoole\Http\Request
+     */
+    public function getRequest(): \Swoole\Http\Request
+    {
+        return $this->request;
+    }
 }
