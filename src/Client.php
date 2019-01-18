@@ -21,7 +21,7 @@ class Client
     /**
      * agent
      */
-    const USER_AGENT = 'PHP swoole/2.1 (+https://github.com/fastdlabs/swoole)';
+    const USER_AGENT = 'PHP swoole/4.2.12';
 
     /**
      * @var swoole_client

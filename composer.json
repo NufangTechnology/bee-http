@@ -13,13 +13,11 @@
         "ext-json": "*",
         "ext-swoole": "^4.1.0",
         "ext-pcntl": "*",
-        "ext-phalcon": "^3.4.0",
         "adhocore/cli": "^0.3.2",
-        "bee-framework/util": "^1.0"
+        "bee-framework/util": "^2.0"
     },
     "require-dev": {
         "eaglewu/swoole-ide-helper": "master-dev",
-        "phalcon/ide-stubs": "*",
         "phpunit/phpunit": "^7.4"
     },
     "autoload": {
