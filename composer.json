@@ -17,8 +17,8 @@
         "bee-framework/util": "^2.0"
     },
     "require-dev": {
-        "eaglewu/swoole-ide-helper": "master-dev",
-        "phpunit/phpunit": "^7.4"
+        "phpunit/phpunit": "^7.4",
+        "swoft/swoole-ide-helper": "^4.2"
     },
     "autoload": {
         "psr-4": {
