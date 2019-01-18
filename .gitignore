@@ -7,5 +7,4 @@
 nbproject/
 .htaccess
 vendor/
-composer.lock
 Vagrantfile
