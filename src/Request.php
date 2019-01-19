@@ -293,7 +293,7 @@ class Request implements RequestInterface
     {
         $requestMethod = $this->getServer('REQUEST_METHOD');
 
-        if (!$requestMethod) {
+        if ($requestMethod) {
             return strtoupper($requestMethod);
         }
 
