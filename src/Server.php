@@ -129,8 +129,6 @@ abstract class Server implements ServerInterface
         $this->swoole->set($this->option);
         $this->registerCallback();
         $this->swoole->start();
-        // 输出进程状态
-        $this->status();
     }
 
     /**
