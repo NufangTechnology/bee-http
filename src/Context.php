@@ -24,12 +24,17 @@ class Context
     /**
      * @var array
      */
+    private $runtime = [];
+
+    /**
+     * @var array
+     */
     private $data = [];
 
     /**
      * @var array
      */
-    private $runtime = [];
+    private $logs = [];
 
     /**
      * Context
@@ -96,6 +101,22 @@ class Context
     public function getRuntime(string $key)
     {
         return $this->runtime[$key] ?? null;
+    }
+
+    /**
+     * @param $log
+     */
+    public function setLog($log)
+    {
+        $this->logs[] = $log;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLogs(): array
+    {
+        return $this->logs;
     }
 
     /**

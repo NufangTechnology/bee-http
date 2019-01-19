@@ -11,7 +11,10 @@ class Headers implements HeadersInterface
     /**
      * @var array
      */
-    protected $headers = ['Server' => 'bee-server-1.0.0'];
+    protected $headers = [
+        'Server'       => 'bee-server-1.1.0',
+        'Content-Type' => 'application/json'
+    ];
 
     /**
      * Sets a header to be sent at the end of the request
