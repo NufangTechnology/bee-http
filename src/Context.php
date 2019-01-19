@@ -100,7 +100,7 @@ class Context
      */
     public function getRuntime(string $key)
     {
-        return $this->runtime[$key] ?? null;
+        return $this->runtime[$key] ?? '';
     }
 
     /**
