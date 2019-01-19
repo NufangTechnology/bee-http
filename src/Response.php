@@ -357,12 +357,13 @@ class Response implements ResponseInterface
     /**
      * Prints out HTTP response to the client
      *
-     * @throws Exception
+     * @return ResponseInterface|false
      */
     public function send(): ResponseInterface
     {
         if ($this->sent) {
-            throw new Exception('Response was already sent');
+            trigger_error('Response was already sent', E_USER_WARNING);
+            return false;
         }
 
         $this->sendHeaders();
