@@ -152,10 +152,12 @@ abstract class Server implements ServerInterface
      */
     public function restart($force = false)
     {
-        if ($force) {
-            $this->shutdown();
-        } else {
-            $this->stop();
+        if ($this->isRunning()) {
+            if ($force) {
+                $this->shutdown();
+            } else {
+                $this->stop();
+            }
         }
 
         $this->start();

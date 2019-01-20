@@ -1,8 +1,8 @@
 <?php
 namespace Bee\Http;
 
+use Bee\Http\Request\File;
 use Bee\Http\Request\FileInterface;
-use Phalcon\Http\Request\File;
 
 /**
  * Request
