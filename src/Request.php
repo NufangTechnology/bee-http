@@ -97,6 +97,10 @@ class Request implements RequestInterface
      */
     protected function getHelper($source, string $name = null, $filters = null, $defaultValue = null, bool $notAllowEmpty = false)
     {
+        if ($name == null) {
+            return $source;
+        }
+
         $value = $source[$name] ?? null;
 
         if ($value == null) {
