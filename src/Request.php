@@ -95,7 +95,7 @@ class Request implements RequestInterface
      * @param bool $notAllowEmpty
      * @return mixed|null
      */
-    protected function getHelper(array $source, string $name = null, $filters = null, $defaultValue = null, bool $notAllowEmpty = false)
+    protected function getHelper($source, string $name = null, $filters = null, $defaultValue = null, bool $notAllowEmpty = false)
     {
         $value = $source[$name] ?? null;
 
