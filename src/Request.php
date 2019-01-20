@@ -88,7 +88,7 @@ class Request implements RequestInterface
      * @param string $name
      * @return mixed
      */
-    public function getServer(string $name)
+    public function getServer(string $name = null)
     {
         return $this->getHelper($this->request->server, strtolower($name));
     }
@@ -97,7 +97,7 @@ class Request implements RequestInterface
      * @param string $header
      * @return string
      */
-    public function getHeader(string $header)
+    public function getHeader(string $header = null)
     {
         return $this->getHelper($this->request->header, $header);
     }

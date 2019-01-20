@@ -30,13 +30,13 @@ interface RequestInterface
      * @param string $header
      * @return string
      */
-    public function getHeader(string $header);
+    public function getHeader(string $header = null);
 
     /**
      * @param string $name
      * @return mixed
      */
-	public function getServer(string $name);
+	public function getServer(string $name = null);
 
 	/**
      * Gets HTTP schema (http/https)

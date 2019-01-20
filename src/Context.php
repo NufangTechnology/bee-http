@@ -134,7 +134,7 @@ class Context
     {
         return json_encode(
             [
-                'header'  => $this->request->getHeaders(),
+                'header'  => $this->request->getHeader(),
                 'server'  => $this->request->getServers(),
                 'body'    => [
                     'get'  => $this->request->getQuery(),
