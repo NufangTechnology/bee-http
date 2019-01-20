@@ -115,6 +115,14 @@ class Request implements RequestInterface
     }
 
     /**
+     * @return array
+     */
+    public function getServers()
+    {
+        return $this->request->server;
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */

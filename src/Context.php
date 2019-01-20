@@ -126,4 +126,26 @@ class Context
     {
         return $this->data;
     }
+
+    /**
+     * @return false|string
+     */
+    public function __toString()
+    {
+        return json_encode(
+            [
+                'header'  => $this->request->getHeaders(),
+                'server'  => $this->request->getServers(),
+                'body'    => [
+                    'get'  => $this->request->getQuery(),
+                    'post' => $this->request->getPost(),
+                    'raw'  => $this->request->getRawBody()
+                ],
+                'runtime' => $this->runtime,
+                'data'    => $this->data,
+                'logs'    => $this->logs
+            ],
+            JSON_UNESCAPED_UNICODE
+        );
+    }
 }
