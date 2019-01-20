@@ -10,6 +10,13 @@ use Bee\Http\Request\FileInterface;
  */
 interface RequestInterface
 {
+    /**
+     * @param string|null $name
+     * @param null $filters
+     * @param null $defaultValue
+     * @return mixed
+     */
+    public function getQuery(string $name = null, $filters = null, $defaultValue = null);
 
     /**
      * @param string|null $name
@@ -20,24 +27,16 @@ interface RequestInterface
 	public function getPost(string $name = null, $filters = null, $defaultValue = null);
 
     /**
-     * @param string|null $name
-     * @param null $filters
-     * @param null $defaultValue
-     * @return mixed
+     * @param string $header
+     * @return string
      */
-	public function getQuery(string $name = null, $filters = null, $defaultValue = null);
+    public function getHeader(string $header);
 
     /**
      * @param string $name
      * @return mixed
      */
 	public function getServer(string $name);
-
-    /**
-     * @param string $header
-     * @return string
-     */
-	public function getHeader(string $header) : string;
 
 	/**
      * Gets HTTP schema (http/https)

@@ -85,6 +85,24 @@ class Request implements RequestInterface
     }
 
     /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getServer(string $name)
+    {
+        return $this->getHelper($this->request->server, strtolower($name));
+    }
+
+    /**
+     * @param string $header
+     * @return string
+     */
+    public function getHeader(string $header)
+    {
+        return $this->getHelper($this->request->header, $header);
+    }
+
+    /**
      * Helper to get data from source, applying filters if needed.
      * If no parameters are given the source is returned.
      *
@@ -116,42 +134,6 @@ class Request implements RequestInterface
         }
 
         return $value;
-    }
-
-    /**
-     * @return array
-     */
-    public function getServers()
-    {
-        return $this->request->server;
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function getServer(string $name)
-    {
-        $name = strtolower($name);
-
-        return $this->request->server[$name] ?? null;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders() : array
-    {
-        return $this->request->header;
-    }
-
-    /**
-     * @param string $header
-     * @return string
-     */
-    public function getHeader(string $header): string
-    {
-        return $this->request->header[$header] ?? null;
     }
 
     /**
