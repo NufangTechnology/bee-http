@@ -363,7 +363,7 @@ class Response implements ResponseInterface
     {
         if ($this->sent) {
             trigger_error('Response was already sent', E_USER_WARNING);
-            return false;
+            return $this;
         }
 
         $this->sendHeaders();
