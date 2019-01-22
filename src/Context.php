@@ -130,7 +130,7 @@ class Context
     /**
      * @return false|string
      */
-    public function __toString()
+    public function toString()
     {
         return json_encode(
             [
