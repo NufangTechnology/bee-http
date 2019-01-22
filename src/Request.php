@@ -40,7 +40,11 @@ class Request implements RequestInterface
      */
     public function getPost(string $name = null, $filters = null, $defaultValue = null, bool $notAllowEmpty = false)
     {
-        return $this->getHelper($this->request->post, $name, $filters, $defaultValue, $notAllowEmpty);
+        if ($this->request->post) {
+            return $this->getHelper($this->request->post, $name, $filters, $defaultValue, $notAllowEmpty);
+        } else {
+            return $this->getPut($name, $filters, $defaultValue, $notAllowEmpty);
+        }
     }
 
     /**
