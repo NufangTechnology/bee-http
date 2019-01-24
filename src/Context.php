@@ -37,6 +37,11 @@ class Context
     private $logs = [];
 
     /**
+     * @var bool
+     */
+    private $outputJson = true;
+
+    /**
      * Context
      *
      * @param SwooleHttpRequest $request
@@ -130,9 +135,9 @@ class Context
     /**
      * @return false|string
      */
-    public function toString()
+    public function __toString()
     {
-        return json_encode(
+        $data = json_encode(
             [
                 'header'  => $this->request->getHeader(),
                 'server'  => $this->request->getServer(),
@@ -147,5 +152,27 @@ class Context
             ],
             JSON_UNESCAPED_UNICODE
         );
+
+        if (empty($data)) {
+            $data = 'Context转换为string失败';
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOutputJson(): bool
+    {
+        return $this->outputJson;
+    }
+
+    /**
+     * @param bool $outputJson
+     */
+    public function setOutputJson(bool $outputJson): void
+    {
+        $this->outputJson = $outputJson;
     }
 }

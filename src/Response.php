@@ -2,7 +2,6 @@
 namespace Bee\Http;
 
 use Bee\Http\Response\Headers;
-use Bee\Http\Response\Exception;
 use Bee\Http\Response\HeadersInterface;
 
 /**

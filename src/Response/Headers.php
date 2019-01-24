@@ -12,7 +12,6 @@ class Headers implements HeadersInterface
      * @var array
      */
     protected $headers = [
-        'Server'       => 'bee-server-1.1.0',
         'Content-Type' => 'application/json'
     ];
 
