@@ -4,6 +4,7 @@ namespace Bee\Http;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
+use Swoole\Server\Task;
 
 /**
  * Interface ServerInterface
@@ -86,11 +87,9 @@ interface ServerInterface
      * task异步回调处理任务时回调此方法
      *
      * @param Server $server
-     * @param integer $taskId
-     * @param integer $workerId
-     * @param mixed $data
+     * @param Task $task
      */
-    public function onTask(Server $server, $taskId, $workerId, $data);
+    public function onTask(Server $server, Task $task);
 
     /**
      * worker进程都低的任务完成后回调此方法

@@ -4,6 +4,7 @@ namespace Bee\Http;
 use Ahc\Cli\Output\Writer;
 use Swoole\Http\Server as SwooleHttpServer;
 use Swoole\Process;
+use Swoole\Server\Task;
 
 /**
  * Http Server
@@ -297,7 +298,7 @@ abstract class Server implements ServerInterface
         Process::signal(SIGUSR2, [$this, 'status']);
     }
 
-    public function onTask(SwooleHttpServer $server, $taskId, $workerId, $data) {}
+    public function onTask(SwooleHttpServer $server, Task $task) {}
 
     public function onFinish(SwooleHttpServer $server, $taskId, $data) {}
 
