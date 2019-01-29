@@ -82,10 +82,9 @@ interface RequestInterface
      * Gets most possibly client IPv4 Address. This methods searches in
      * $_SERVER["REMOTE_ADDR"] and optionally in $_SERVER["HTTP_X_FORWARDED_FOR"]
      *
-     * @param bool $trustForwardedHeader
      * @return string
      */
-	public function getClientAddress(bool $trustForwardedHeader = false) : string;
+	public function getClientAddress() : string;
 
 	/**
      * Gets HTTP method which request has been made

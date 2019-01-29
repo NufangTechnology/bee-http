@@ -103,7 +103,7 @@ class Request implements RequestInterface
      */
     public function getHeader(string $header = null)
     {
-        return $this->getHelper($this->request->header, $header);
+        return $this->getHelper($this->request->header, strtolower($header));
     }
 
     /**
@@ -123,7 +123,7 @@ class Request implements RequestInterface
             return $source;
         }
 
-        $value = $source[$name] ?? null;
+        $value = $source[$name] ?? '';
 
         if ($value == null) {
             return $defaultValue;
@@ -223,13 +223,12 @@ class Request implements RequestInterface
      */
     public function getHttpHost(): string
     {
-        $host = $this->getServer('HTTP_HOST');
+        $host = $this->getHeader('HOST');
 
-        if (!$host) {
-            $host = $this->getServer('SERVER_NAME');
-            if (!$host) {
-                $host = $this->getServer('SERVER_ADDR');
-            }
+        if ($host) {
+            $info = explode(':', $host);
+
+            return $info[0];
         }
 
         return (string)$host;
@@ -255,33 +254,11 @@ class Request implements RequestInterface
      * Gets most possibly client IPv4 Address. This methods searches in
      * $_SERVER["REMOTE_ADDR"] and optionally in $_SERVER["HTTP_X_FORWARDED_FOR"]
      *
-     * @param bool $trustForwardedHeader
      * @return string
      */
-    public function getClientAddress(bool $trustForwardedHeader = false): string
+    public function getClientAddress(): string
     {
-        $address = null;
-
-        if ($trustForwardedHeader) {
-            $address = $this->getServer('HTTP_X_FORWARDED_FOR');
-            if ($address === null) {
-                $address = $this->getServer('HTTP_CLIENT_IP');
-            }
-        }
-
-        if ($address === null) {
-            $address = $this->getServer('REMOTE_ADDR');
-        }
-
-        if (is_string($address)) {
-            if (stripos($address, ',') !== false) {
-                return explode(',', $address)[0];
-            }
-
-            return $address;
-        }
-
-        return false;
+        return $this->getServer('REMOTE_ADDR');
     }
 
     /**
@@ -504,11 +481,11 @@ class Request implements RequestInterface
             if (is_string($name)) {
                 $files[] = [
                     "name" => $name,
-					"type" => $types[$idx],
-					"tmp_name" => $tmpNames[$idx],
-					"size" => $sizes[$idx],
-					"error" => $errors[$idx],
-					"key" => $p
+                    "type" => $types[$idx],
+                    "tmp_name" => $tmpNames[$idx],
+                    "size" => $sizes[$idx],
+                    "error" => $errors[$idx],
+                    "key" => $p
                 ];
             } elseif (is_array($name)) {
                 $parentFiles = $this->smoothFiles(
@@ -541,20 +518,20 @@ class Request implements RequestInterface
      * Gets content type which request has been made
      */
     public function getContentType()
-	{
-	    $header = $this->request->header;
+    {
+        $header = $this->request->header;
 
-	    if (isset($header['content-type'])) {
-	        return $header['content-type'];
+        if (isset($header['content-type'])) {
+            return $header['content-type'];
         } else {
             /**
              * @see https://bugs.php.net/bug.php?id=66606
              */
-	        if (isset($header['http-content-type'])) {
-	            return $header['http-content-type'];
+            if (isset($header['http-content-type'])) {
+                return $header['http-content-type'];
             }
         }
 
-	    return null;
+        return null;
     }
 }
