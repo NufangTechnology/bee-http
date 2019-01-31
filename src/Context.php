@@ -133,34 +133,6 @@ class Context
     }
 
     /**
-     * @return false|string
-     */
-    public function __toString()
-    {
-        $data = json_encode(
-            [
-                'header'  => $this->request->getHeader(),
-                'server'  => $this->request->getServer(),
-                'body'    => [
-                    'get'  => $this->request->getQuery(),
-                    'post' => $this->request->getPost(),
-                    'raw'  => $this->request->getRawBody()
-                ],
-                'runtime' => $this->runtime,
-                'data'    => $this->data,
-                'logs'    => $this->logs
-            ],
-            JSON_UNESCAPED_UNICODE
-        );
-
-        if (empty($data)) {
-            $data = 'Context转换为string失败';
-        }
-
-        return $data;
-    }
-
-    /**
      * @return bool
      */
     public function isOutputJson(): bool
@@ -174,5 +146,30 @@ class Context
     public function setOutputJson(bool $outputJson): void
     {
         $this->outputJson = $outputJson;
+    }
+
+    /**
+     * @return false|string
+     */
+    public function __toString()
+    {
+        $data = json_encode(
+            [
+                'header'  => $this->request->getHeader(),
+                'server'  => $this->request->getServer(),
+                'get'     => $this->request->getQuery(),
+                'body'    => $this->request->getJsonRawBody(),
+                'runtime' => $this->runtime,
+                'data'    => $this->data,
+                'logs'    => $this->logs
+            ],
+            JSON_UNESCAPED_UNICODE
+        );
+
+        if (empty($data)) {
+            $data = 'Context转换为string失败';
+        }
+
+        return $data;
     }
 }
