@@ -155,8 +155,10 @@ class Context
     {
         // 如果trace写到了二进制数据，舍弃
         $logs = $this->logs;
-        if (isset($logs['trace']) && !json_encode($logs['trace'])) {
-            unset($logs['trace']);
+        foreach ($logs as $key => $log) {
+            if (isset($log['trace']) && !json_encode($log['trace'])) {
+                unset($logs[$key]['trace']);
+            }
         }
 
         $data = json_encode(
