@@ -153,6 +153,12 @@ class Context
      */
     public function __toString()
     {
+        // 如果trace写到了二进制数据，舍弃
+        $logs = $this->logs;
+        if (isset($logs['trace']) && !json_encode($logs['trace'])) {
+            unset($logs['trace']);
+        }
+
         $data = json_encode(
             [
                 'header'  => $this->request->getHeader(),
@@ -161,9 +167,10 @@ class Context
                 'body'    => $this->request->getJsonRawBody(),
                 'runtime' => $this->runtime,
                 'data'    => $this->data,
-                'logs'    => $this->logs
+                'logs'    => $logs
             ],
-            JSON_UNESCAPED_UNICODE
+            JSON_UNESCAPED_UNICODE,
+            3
         );
 
         if (empty($data)) {
