@@ -153,23 +153,26 @@ class Context
      */
     public function __toString()
     {
-        // 如果trace写到了二进制数据，舍弃
-        $logs = $this->logs;
-        foreach ($logs as $key => $log) {
-            if (isset($log['trace']) && !json_encode($log['trace'])) {
-                unset($logs[$key]['trace']);
-            }
-        }
-
         $data = json_encode(
             [
-                'header'  => $this->request->getHeader(),
-                'server'  => $this->request->getServer(),
-                'get'     => $this->request->getQuery(),
-                'body'    => $this->request->getJsonRawBody(),
-                'runtime' => $this->runtime,
-                'data'    => $this->data,
-                'logs'    => $logs
+                'request_uri' => $this->request->getServer('request_uri'),
+                'method'      => $this->request->getServer('request_method'),
+                'headers'      => [
+                    'Host'             => $this->request->getHeader('Host'),
+                    'Content-Type'     => $this->request->getHeader('Content-Type'),
+                    'User-Agent'       => $this->request->getHeader('User-Agent'),
+                    'Referer'          => $this->request->getHeader('Referer'),
+                    'X-Api-Version'    => $this->request->getHeader('X-Api-Version'),
+                    'X-Client-Version' => $this->request->getHeader('X-Client-Version'),
+                    'X-Mini-Version'   => $this->request->getHeader('X-Mini-Version'),
+                    'X-System-Version' => $this->request->getHeader('X-System-Version'),
+                    'X-Token'          => $this->request->getHeader('X-Token'),
+                ],
+                'get'         => $this->request->getQuery(),
+                'body'        => $this->request->getJsonRawBody(),
+                'runtime'     => $this->runtime,
+                'data'        => $this->data,
+                'logs'        => $this->logs
             ],
             JSON_UNESCAPED_UNICODE
         );
