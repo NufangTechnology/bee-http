@@ -5,7 +5,7 @@ use Swoole\Http\Request as SwooleHttpRequest;
 use Swoole\Http\Response as SwooleHttpResponse;
 
 /**
- * Class Context
+ * HTTP 请求处理上下文
  *
  * @package Bee\Http
  */
@@ -22,9 +22,9 @@ class Context
     private $response;
 
     /**
-     * @var array
+     * @var mixed
      */
-    private $runtime = [];
+    private $content;
 
     /**
      * @var array
@@ -91,21 +91,19 @@ class Context
     }
 
     /**
-     * @param string $key
      * @param $value
      */
-    public function setRuntime(string $key, $value): void
+    public function setContent($value): void
     {
-        $this->runtime[$key] = $value;
+        $this->content = $value;
     }
 
     /**
-     * @param string $key
      * @return mixed
      */
-    public function getRuntime(string $key)
+    public function getRuntime()
     {
-        return $this->runtime[$key] ?? '';
+        return $this->content;
     }
 
     /**
@@ -170,7 +168,7 @@ class Context
                 ],
                 'get'         => $this->request->getQuery(),
                 'body'        => $this->request->getJsonRawBody(),
-                'runtime'     => $this->runtime,
+                'context'     => $this->content,
                 'data'        => $this->data,
                 'logs'        => $this->logs
             ],
