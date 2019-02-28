@@ -101,7 +101,7 @@ class Context
     /**
      * @return mixed
      */
-    public function getRuntime()
+    public function getContent()
     {
         return $this->content;
     }
