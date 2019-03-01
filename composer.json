@@ -9,9 +9,9 @@
         }
     ],
     "require": {
-        "php": "^7.2.0",
+        "php": ">=7.1",
         "ext-json": "*",
-        "ext-swoole": "^4.1.0",
+        "ext-swoole": ">=4.2",
         "ext-pcntl": "*",
         "adhocore/cli": "^0.3.2",
         "bee-framework/util": "^2.0"
