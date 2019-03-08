@@ -145,4 +145,18 @@ class Context
     {
         $this->outputJson = $outputJson;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'request_uri' => $this->request->getServer('request_uri'),
+            'method'      => $this->request->getServer('request_method'),
+            'headers'     => $this->request->getHeader(),
+            'get'         => $this->request->getQuery(),
+            'body'        => $this->request->getJsonRawBody(),
+            'content'     => $this->content,
+            'data'        => $this->data,
+            'logs'        => $this->logs
+        ];
+    }
 }

@@ -16,17 +16,17 @@ abstract class Server implements ServerInterface
     /**
      * @var string
      */
-    private $host = '127.0.0.1';
+    protected $host = '127.0.0.1';
 
     /**
      * @var int
      */
-    private $port = 9527;
+    protected $port = 9527;
 
     /**
      * @var array
      */
-    private $option = [
+    protected $option = [
         'pid_file'         => '/tmp/bee-http.pid',
         'log_file'         => '/tmp/bee-http_server.log',
         'worker_num'       => 4,
