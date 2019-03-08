@@ -27,10 +27,10 @@ abstract class Server implements ServerInterface
      * @var array
      */
     protected $option = [
-        'pid_file'         => '/tmp/bee-http.pid',
-        'log_file'         => '/tmp/bee-http_server.log',
-        'worker_num'       => 4,
-        'task_worker_num'  => 4,
+        'pid_file'        => '/tmp/bee-http.pid',
+        'log_file'        => '/tmp/bee-http_server.log',
+        'worker_num'      => 4,
+        'task_worker_num' => 4,
     ];
 
     /**
