@@ -91,9 +91,9 @@ class Context
     }
 
     /**
-     * @param $value
+     * @param string $value
      */
-    public function setContent($value): void
+    public function setContent(string $value): void
     {
         $this->content = $value;
     }
