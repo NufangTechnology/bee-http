@@ -146,6 +146,11 @@ class Context
         $this->outputJson = $outputJson;
     }
 
+    /**
+     * 输出对象信息
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
