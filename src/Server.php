@@ -305,4 +305,16 @@ abstract class Server implements ServerInterface
     public function onShutdown(SwooleHttpServer $server) {}
 
     public function onWorkerExit(SwooleHttpServer $server, $workerId) {}
+
+    public function onManagerStart(SwooleHttpServer $server) {}
+
+    public function onManagerStop(SwooleHttpServer $server) {}
+
+    public function onStart(SwooleHttpServer $server) {}
+
+    public function onWorkerStart(SwooleHttpServer $server, $workerId) {}
+
+    public function onWorkerStop(SwooleHttpServer $server, $workerId) {}
+
+    public function onWorkerError(SwooleHttpServer $server, $workerId, $workerPid, $exitCode, $signal) {}
 }
