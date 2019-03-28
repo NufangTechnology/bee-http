@@ -2,9 +2,9 @@
 namespace Bee\Http;
 
 use Ahc\Cli\Output\Writer;
-use Swoole\Http\Server as SwooleHttpServer;
 use Swoole\Process;
 use Swoole\Server\Task;
+use Swoole\Http\Server as SwooleHttpServer;
 
 /**
  * Http Server
@@ -298,23 +298,23 @@ abstract class Server implements ServerInterface
         Process::signal(SIGUSR2, [$this, 'status']);
     }
 
-    public function onTask(SwooleHttpServer $server, Task $task) {}
+    public function onManagerStart($server) {}
 
-    public function onFinish(SwooleHttpServer $server, $taskId, $data) {}
+    public function onManagerStop($server) {}
 
-    public function onShutdown(SwooleHttpServer $server) {}
+    public function onStart($server) {}
 
-    public function onWorkerExit(SwooleHttpServer $server, $workerId) {}
+    public function onShutdown($server) {}
 
-    public function onManagerStart(SwooleHttpServer $server) {}
+    public function onWorkerStart($server, $workerId) {}
 
-    public function onManagerStop(SwooleHttpServer $server) {}
+    public function onWorkerStop($server, $workerId) {}
 
-    public function onStart(SwooleHttpServer $server) {}
+    public function onWorkerExit($server, $workerId) {}
 
-    public function onWorkerStart(SwooleHttpServer $server, $workerId) {}
+    public function onWorkerError($server, $workerId, $workerPid, $exitCode, $signal) {}
 
-    public function onWorkerStop(SwooleHttpServer $server, $workerId) {}
+    public function onTask($server, Task $task) {}
 
-    public function onWorkerError(SwooleHttpServer $server, $workerId, $workerPid, $exitCode, $signal) {}
+    public function onFinish($server, $taskId, $data) {}
 }

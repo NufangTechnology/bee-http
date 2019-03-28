@@ -22,7 +22,7 @@ interface ServerInterface
      * @param Server $server
      * @return mixed
      */
-    public function onManagerStart(Server $server);
+    public function onManagerStart($server);
 
     /**
      * 管理进程结束时回调该方法
@@ -31,21 +31,21 @@ interface ServerInterface
      * @param Server $server
      * @return mixed
      */
-    public function onManagerStop(Server $server);
+    public function onManagerStop($server);
 
     /**
      * Server启动在主进程的主线程回调此方法
      *
      * @param Server $server
      */
-    public function onStart(Server $server);
+    public function onStart($server);
 
     /**
      * Server正常结束时回调此方法
      *
      * @param Server $server
      */
-    public function onShutdown(Server $server);
+    public function onShutdown($server);
 
     /**
      * Worker进程/Task进程启动时回调此方法
@@ -53,7 +53,7 @@ interface ServerInterface
      * @param Server $server
      * @param integer $workerId
      */
-    public function onWorkerStart(Server $server, $workerId);
+    public function onWorkerStart($server, $workerId);
 
     /**
      * worker进程终止时回调此方法
@@ -62,7 +62,7 @@ interface ServerInterface
      * @param Server $server
      * @param integer $workerId
      */
-    public function onWorkerStop(Server $server, $workerId);
+    public function onWorkerStop($server, $workerId);
 
     /**
      * 异步重启特性
@@ -73,7 +73,20 @@ interface ServerInterface
      * @param Server $server
      * @param $workerId
      */
-    public function onWorkerExit(Server $server, $workerId);
+    public function onWorkerExit($server, $workerId);
+
+    /**
+     * worker进程异常时回调此方法
+     *
+     * @param Server $server
+     * @param integer $workerId
+     * @param integer $workerPid
+     * @param integer $exitCode
+     * @param integer $signal
+     *
+     * @return mixed
+     */
+    public function onWorkerError($server, $workerId, $workerPid, $exitCode, $signal);
 
     /**
      * Http请求进来时回调此方法
@@ -89,7 +102,7 @@ interface ServerInterface
      * @param Server $server
      * @param Task $task
      */
-    public function onTask(Server $server, Task $task);
+    public function onTask($server, Task $task);
 
     /**
      * worker进程都低的任务完成后回调此方法
@@ -98,18 +111,5 @@ interface ServerInterface
      * @param integer $taskId
      * @param mixed $data
      */
-    public function onFinish(Server $server, $taskId, $data);
-
-    /**
-     * worker进程异常时回调此方法
-     *
-     * @param Server $server
-     * @param integer $workerId
-     * @param integer $workerPid
-     * @param integer $exitCode
-     * @param integer $signal
-     *
-     * @return mixed
-     */
-    public function onWorkerError(Server $server, $workerId, $workerPid, $exitCode, $signal);
+    public function onFinish($server, $taskId, $data);
 }
