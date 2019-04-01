@@ -298,15 +298,36 @@ abstract class Server implements ServerInterface
         Process::signal(SIGUSR2, [$this, 'status']);
     }
 
+    /**
+     * Server启动在主进程的主线程回调此方法
+     *
+     * @param \Swoole\WebSocket\Server $server
+     */
+    public function onStart($server)
+    {
+        swoole_set_process_name($this->name . ':reactor');
+    }
+
+    /**
+     * 进程启动
+     *
+     * @param $server
+     * @param $workerId
+     */
+    public function onWorkerStart($server, $workerId)
+    {
+        if ($server->taskworker) {
+            swoole_set_process_name($this->name . ':task');
+        } else {
+            swoole_set_process_name($this->name . ':worker');
+        }
+    }
+
     public function onManagerStart($server) {}
 
     public function onManagerStop($server) {}
 
-    public function onStart($server) {}
-
     public function onShutdown($server) {}
-
-    public function onWorkerStart($server, $workerId) {}
 
     public function onWorkerStop($server, $workerId) {}
 
