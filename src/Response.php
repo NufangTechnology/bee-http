@@ -380,9 +380,9 @@ class Response implements ResponseInterface
     public function setFileToSend(string $filePath, $attachmentName = null, $attachment = null) : ResponseInterface
     {
         if (is_string($attachmentName)) {
-            $basePath = basename($filePath);
-        } else {
             $basePath = $attachmentName;
+        } else {
+            $basePath = basename($filePath);
         }
 
         if ($attachment) {
