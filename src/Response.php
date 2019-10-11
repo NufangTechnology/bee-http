@@ -330,8 +330,10 @@ class Response implements ResponseInterface
      */
     public function sendHeaders(): ResponseInterface
     {
+        $headers = $this->headers->toArray();
+
         // 发送 header
-        foreach ($this->headers as $key => $value) {
+        foreach ($headers as $key => $value) {
             $this->response->header($key, $value);
         }
 
