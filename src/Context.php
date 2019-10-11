@@ -22,7 +22,7 @@ class Context
     private $response;
 
     /**
-     * @var mixed
+     * @var string
      */
     private $content;
 
@@ -93,7 +93,7 @@ class Context
     /**
      * @param string $value
      */
-    public function setContent(string $value): void
+    public function setContent(string $value = ''): void
     {
         $this->content = $value;
     }
