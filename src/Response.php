@@ -101,19 +101,6 @@ class Response implements ResponseInterface
     }
 
     /**
-     * Send a raw header to the response
-     *
-     * @param string $header
-     * @return Response
-     */
-    public function setRawHeader(string $header): ResponseInterface
-    {
-        $this->headers->setRaw($header);
-        
-        return $this;
-    }
-
-    /**
      * Resets all the established headers
      */
     public function resetHeaders(): ResponseInterface
@@ -343,15 +330,9 @@ class Response implements ResponseInterface
      */
     public function sendHeaders(): ResponseInterface
     {
-        $headers = $this->headers->toArray();
-
         // 发送 header
-        foreach ($headers as $key => $value) {
-            if (is_null($value)) {
-                $this->response->setRawHeader($key);
-            } else {
-                $this->response->header($key, $value);
-            }
+        foreach ($this->headers as $key => $value) {
+            $this->response->header($key, $value);
         }
 
         return $this;
@@ -406,10 +387,10 @@ class Response implements ResponseInterface
         }
 
         if ($attachment) {
-            $this->setRawHeader('Content-Description: File Transfer');
-			$this->setRawHeader('Content-Type: application/octet-stream');
-			$this->setRawHeader('Content-Disposition: attachment; filename=' . $basePath);
-			$this->setRawHeader('Content-Transfer-Encoding: binary');
+            $this->setHeader('Content-Description', 'File Transfer');
+			$this->setHeader('Content-Type', 'application/octet-stream');
+			$this->setHeader('Content-Disposition', 'attachment; filename=' . $basePath);
+			$this->setHeader('Content-Transfer-Encoding', 'binary');
         }
 
         $this->file = $filePath;

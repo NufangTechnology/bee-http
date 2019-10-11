@@ -33,14 +33,6 @@ interface ResponseInterface
      */
 	public function setHeader(string $name, $value) : ResponseInterface;
 
-    /**
-     * Send a raw header to the response
-     *
-     * @param string $header
-     * @return ResponseInterface
-     */
-	public function setRawHeader(string $header) : ResponseInterface;
-
 	/**
      * Resets all the established headers
      */

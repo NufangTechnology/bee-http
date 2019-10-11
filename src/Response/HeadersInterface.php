@@ -23,13 +23,6 @@ interface HeadersInterface
      */
     public function get(string $name);
 
-    /**
-     * Sets a raw header to be sent at the end of the request
-     *
-     * @param string $header
-     */
-	public function setRaw(string $header);
-
 	/**
      * Reset set headers
      */
