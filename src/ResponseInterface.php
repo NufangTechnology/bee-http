@@ -123,7 +123,7 @@ interface ResponseInterface
 	/**
      * Prints out HTTP response to the client
      */
-	public function send() : ResponseInterface;
+	public function send();
 
     /**
      * Sets an attached file to be sent at the end of the request

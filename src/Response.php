@@ -343,9 +343,9 @@ class Response implements ResponseInterface
     /**
      * Prints out HTTP response to the client
      *
-     * @return ResponseInterface|false
+     * @return void
      */
-    public function send(): ResponseInterface
+    public function send()
     {
         if ($this->sent) {
             trigger_error('Response was already sent', E_USER_WARNING);
@@ -359,6 +359,7 @@ class Response implements ResponseInterface
          */
         if ($this->content) {
             $this->response->write($this->content);
+            $this->response->end();
         } else {
             if ($this->file) {
                 $this->response->sendfile($this->file);
@@ -366,10 +367,6 @@ class Response implements ResponseInterface
         }
 
         $this->sent = true;
-
-        $this->response->end();
-
-        return $this;
     }
 
     /**
