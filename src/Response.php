@@ -347,7 +347,11 @@ class Response implements ResponseInterface
 
         // 发送 header
         foreach ($headers as $key => $value) {
-            $this->response->header($key, $value);
+            if (is_null($value)) {
+                $this->response->setRawHeader($key);
+            } else {
+                $this->response->header($key, $value);
+            }
         }
 
         return $this;
