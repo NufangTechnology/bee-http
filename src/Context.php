@@ -24,7 +24,7 @@ class Context
     /**
      * @var string
      */
-    private $content;
+    private $content = '';
 
     /**
      * @var array
