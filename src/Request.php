@@ -280,13 +280,15 @@ class Request implements RequestInterface
      */
     public function getUserAgent(): string
     {
-        $server = $this->request->server[];
+        $server = $this->request->server;
 
         if (isset($server['user_agent'])) {
             return $server['user_agent'];
-        } else {
+        } elseif (isset($server['http_user_agent'])) {
             return $server['http_user_agent'];
         }
+
+        return '';
     }
 
     /**
