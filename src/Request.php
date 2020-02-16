@@ -125,7 +125,7 @@ class Request implements RequestInterface
 
         $value = $source[$name] ?? '';
 
-        if ($value == null) {
+        if ($value === null) {
             return $defaultValue;
         }
 
